@@ -17,7 +17,6 @@ public class PartyMember {
     @JoinColumn(name = "party_id")
     private Party party;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

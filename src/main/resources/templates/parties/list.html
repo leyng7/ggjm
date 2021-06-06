@@ -7,21 +7,27 @@
 >
 
 <div layout:fragment="content">
-    <a class="btn btn-sm btn-primary" href="/parties/new">파티 생성</a>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card h-100"
+                 th:classappend="${party.partyMembers.size >= 3} ? 'border-primary' : ''"
+                 th:each="party : ${page.content}"
+            >
+                <!--<img src="..." class="card-img-top" alt="...">-->
+                <div class="card-body">
+                    <a th:href="@{'/parties/' + ${party.id}}">
+                        <h5 class="card-title" th:text="${party.name} + ' (1/4)'">파티 제목 (1/4)</h5>
+                    </a>
+                    <p class="card-text">파티 설명</p>
+                    <span class="badge rounded-pill bg-primary">분식</span>
+                    <span class="badge rounded-pill bg-secondary">명랑핫도그</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
-        <table class="table">
-            <tr>
-                <th>번호</th>
-                <th>파티명</th>
-            </tr>
-            <tr th:each="party, status : ${page.content}">
-                <td th:text="${page.totalElements - (status.index + page.number * page.size)}">1</td>
-                <td th:text="${party.name}"></td>
-            </tr>
-        </table>
         <ul class="pagination" th:replace="common/frontPagination :: pagination"></ul>
     </div>
 </div>
-
 </body>
 </html>

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "TB_PARTY")
 @Entity
@@ -21,5 +23,8 @@ public class Party {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "party")
+    private List<PartyMember> partyMembers = new ArrayList<>();
 
 }
