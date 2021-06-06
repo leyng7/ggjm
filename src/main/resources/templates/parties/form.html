@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/frontLayout}"
+>
+<body>
+
+<div layout:fragment="content">
+    <form method="post" th:action="@{/parties/new}" th:object="${partyForm}">
+        <div class="form-group row">
+            <div class="col-12">
+                <label th:for="name" class="col-form-label">파티명</label>
+                <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" th:field="*{name}"/>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+        </div>
+        <button class="btn btn-sm btn-primary" type="submit">등록</button>
+    </form>
+</div>
+
+</body>
+</html>
