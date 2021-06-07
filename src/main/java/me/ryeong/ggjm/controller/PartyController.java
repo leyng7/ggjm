@@ -10,6 +10,7 @@ import me.ryeong.ggjm.domain.PartyMember;
 import me.ryeong.ggjm.repository.MemberRepository;
 import me.ryeong.ggjm.repository.PartyMemberRepository;
 import me.ryeong.ggjm.repository.PartyRepository;
+import me.ryeong.ggjm.service.PartyService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
 @RequiredArgsConstructor
 public class PartyController {
 
-    private final MemberRepository memberRepository;
+    private final PartyService partyService;
     private final PartyRepository partyRepository;
     private final PartyMemberRepository partyMemberRepository;
 
@@ -67,6 +69,7 @@ public class PartyController {
 
     @GetMapping("/parties/{id}")
     public String view(@PathVariable Long id,
+                       @CurrentUser Member member,
                        Model model) {
 
         Party party = partyRepository.findByIdWithMember(id).orElseThrow();
@@ -74,6 +77,9 @@ public class PartyController {
 
         model.addAttribute("party", party);
         model.addAttribute("partyMembers", partyMembers);
+
+        Optional<PartyMember> existMember = partyMembers.stream().filter(partyMember -> partyMember.getMember().getId().equals(member.getId())).findFirst();
+        model.addAttribute("entered", existMember.isPresent());
 
         return "parties/view";
     }
@@ -83,18 +89,23 @@ public class PartyController {
                         @CurrentUser Member member,
                         Model model) {
 
-        String username = member.getUsername();
+        partyService.enterParty(id, member);
 
-        Party party = partyRepository.findByIdWithMember(id).orElseThrow();
-        List<PartyMember> partyMembers = partyMemberRepository.findByPartyWithMember(party);
-
-        model.addAttribute("party", party);
-        model.addAttribute("partyMembers", partyMembers);
-
-        return "parties/view";
+        return "redirect:/parties/" + id;
     }
 
-    @Getter @Setter
+    @GetMapping("/parties/{id}/leave")
+    public String leave(@PathVariable Long id,
+                        @CurrentUser Member member,
+                        Model model) {
+
+        partyService.leaveParty(id, member);
+
+        return "redirect:/parties/" + id;
+    }
+
+    @Getter
+    @Setter
     static class PartyForm {
 
         @NotBlank(message = "이름은 필수값입니다.")

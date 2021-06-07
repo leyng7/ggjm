@@ -9,10 +9,11 @@ import java.util.List;
 @Getter
 public class MemberAdapter extends User {
 
-    private Member member;
+    private final Member member;
 
     public MemberAdapter(Member member) {
         super(member.getUsername(), member.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_" + member.getRole())));
+        this.member = member;
     }
 
 }

@@ -29,7 +29,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        <a class="btn btn-sm btn-primary" th:href="@{'/parties/' + ${party.id} + '/enter'}">파티 참가</a>
+        <a class="btn btn-sm btn-primary" th:if="${!entered}" th:href="@{'/parties/' + ${party.id} + '/enter'}">파티 참가</a>
+        <a class="btn btn-sm btn-primary" th:if="${entered}" th:href="@{'/parties/' + ${party.id} + '/leave'}">파티 탈퇴</a>
     </div>
 </div>
 

@@ -16,7 +16,7 @@
                 <!--<img src="..." class="card-img-top" alt="...">-->
                 <div class="card-body">
                     <a th:href="@{'/parties/' + ${party.id}}">
-                        <h5 class="card-title" th:text="${party.name} + ' (1/4)'">파티 제목 (1/4)</h5>
+                        <h5 class="card-title" th:text="${party.name} + ' (' + ${party.partyMembers.size + 1} +'/4)'">파티 제목 (1/4)</h5>
                     </a>
                     <p class="card-text">파티 설명</p>
                     <span class="badge rounded-pill bg-primary">분식</span>

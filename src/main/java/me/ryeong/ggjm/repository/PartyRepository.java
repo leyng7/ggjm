@@ -1,5 +1,6 @@
 package me.ryeong.ggjm.repository;
 
+import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

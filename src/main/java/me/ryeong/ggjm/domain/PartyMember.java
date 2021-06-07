@@ -1,12 +1,13 @@
 package me.ryeong.ggjm.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Table(name = "TB_PARTY_MEMBER")
 @Entity
-@Getter
+@Getter @Setter
 public class PartyMember {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
