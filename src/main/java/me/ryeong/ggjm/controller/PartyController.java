@@ -56,12 +56,14 @@ public class PartyController {
     @PostMapping("/parties/new")
     public String create(@Valid PartyForm partyForm,
                          BindingResult result,
+                         @CurrentUser Member member,
                          Model model) {
         if (result.hasErrors()) {
             return "parties/form";
         }
 
         Party party = partyForm.toParty();
+        party.setMember(member);
         partyRepository.save(party);
 
         return "redirect:/parties";

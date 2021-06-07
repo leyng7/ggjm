@@ -22,7 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
-        http.formLogin();
+        http.formLogin()
+                .failureForwardUrl("/login")
+                .successForwardUrl("/");
 
         http.logout()
                 .logoutSuccessUrl("/");
