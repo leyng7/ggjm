@@ -1,11 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Hello</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <style>
         h1 {
             color: white;
@@ -19,21 +21,35 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <div class="container">
+        <a class="navbar-brand" href="/">굿끼제먹</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="nav-link">로그아웃</a></li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()"><a th:href="@{/login}" class="nav-link">로그인</a></li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()"><a th:href="@{/members/new}" class="nav-link">회원 가입</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        파티
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="dropdown-item"><a th:href="@{/parties}" class="nav-link">파티 모집</a></li>
+                        <li class="dropdown-item"><a th:href="@{/parties/new}" class="nav-link">파티 생성</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--<form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>-->
+        </div>
+    </div>
+</nav>
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <span class="fs-4">굿끼제먹 s</span>
-            <svg style="color: black" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-egg-fill" viewBox="0 0 16 16">
-                <path d="M14 10a6 6 0 0 1-12 0C2 5.686 5 0 8 0s6 5.686 6 10z"/>
-            </svg>
-        </a>
-
-        <ul class="nav">
-            <li class="nav-item"><a th:href="@{/}" class="nav-link active" aria-current="page">홈</a></li>
-            <li class="nav-item"><a th:href="@{/parties}" class="nav-link">파티 모집</a></li>
-            <li class="nav-item"><a th:href="@{/parties/new}" class="nav-link">파티 생성</a></li>
-        </ul>
-    </header>
     <div layout:fragment="content"></div>
 </div>
 

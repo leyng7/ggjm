@@ -3,6 +3,8 @@ package me.ryeong.ggjm.controller;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import me.ryeong.ggjm.common.CurrentUser;
+import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import me.ryeong.ggjm.domain.PartyMember;
 import me.ryeong.ggjm.repository.MemberRepository;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -27,9 +30,7 @@ import java.util.List;
 public class PartyController {
 
     private final MemberRepository memberRepository;
-
     private final PartyRepository partyRepository;
-
     private final PartyMemberRepository partyMemberRepository;
 
     @GetMapping("/parties")
@@ -67,6 +68,22 @@ public class PartyController {
     @GetMapping("/parties/{id}")
     public String view(@PathVariable Long id,
                        Model model) {
+
+        Party party = partyRepository.findByIdWithMember(id).orElseThrow();
+        List<PartyMember> partyMembers = partyMemberRepository.findByPartyWithMember(party);
+
+        model.addAttribute("party", party);
+        model.addAttribute("partyMembers", partyMembers);
+
+        return "parties/view";
+    }
+
+    @GetMapping("/parties/{id}/enter")
+    public String enter(@PathVariable Long id,
+                        @CurrentUser Member member,
+                        Model model) {
+
+        String username = member.getUsername();
 
         Party party = partyRepository.findByIdWithMember(id).orElseThrow();
         List<PartyMember> partyMembers = partyMemberRepository.findByPartyWithMember(party);
