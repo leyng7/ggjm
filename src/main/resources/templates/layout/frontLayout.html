@@ -41,6 +41,15 @@
                         <li class="dropdown-item"><a th:href="@{/parties/new}" class="nav-link">파티 생성</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="restaurantsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        식당
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="restaurantsDropdown">
+                        <li class="dropdown-item"><a th:href="@{/restaurants}" class="nav-link">식당 목록</a></li>
+                        <li class="dropdown-item"><a th:href="@{/restaurants/new}" class="nav-link">식당 추가</a></li>
+                    </ul>
+                </li>
             </ul>
             <!--<form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

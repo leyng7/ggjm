@@ -9,14 +9,24 @@
 
 <div layout:fragment="content">
     <form method="post" th:action="@{/parties/new}" th:object="${partyForm}">
-        <div class="form-group row">
-            <div class="col-12">
-                <label th:for="name" class="col-form-label">파티명</label>
-                <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" th:field="*{name}"/>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-            </div>
+        <div class="mb-3">
+            <label th:for="name" class="form-label">파티명</label>
+            <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" th:field="*{name}" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
-        <button class="btn btn-sm btn-primary" type="submit">등록</button>
+        <!--<div class="mb-3">
+            <label th:for="name" class="form-label">식당</label>
+            <select  class="form-select" aria-label="Default select example">
+              <option selected>식당 선택</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>-->
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary" type="submit">등록</button>
+        </div>
     </form>
 </div>
 
