@@ -3,6 +3,7 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layout/frontLayout}"
 >
 
@@ -14,11 +15,15 @@
                 <div class="card-body">
                     <a th:href="@{'/restaurants/' + ${restaurant.id}}">
                         <h5 class="card-title" th:text="${restaurant.name}">식당 이름</h5>
+                        <span class="badge rounded-pill bg-primary" th:text="${restaurant.type.displayValue}">분식</span>
                     </a>
                     <!--<p class="card-text">파티 설명</p>-->
                 </div>
             </div>
         </div>
+    </div>
+    <div class="d-flex justify-content-end" sec:authorize="isAuthenticated()">
+        <a th:href="@{/restaurants/new}" class="btn btn-sm btn-primary ">식당 추가</a>
     </div>
     <div>
         <ul class="pagination" th:replace="common/frontFragment :: pagination"></ul>

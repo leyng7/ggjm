@@ -8,22 +8,12 @@
 <body>
 
 <div layout:fragment="content">
-    <form method="post" th:action="@{/parties/new}" th:object="${partyForm}">
+    <form method="post" th:action="@{'/restaurants/' + ${id} + '/new-party'}" th:object="${partyForm}">
         <div class="mb-3">
             <label th:for="name" class="form-label">파티명</label>
             <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" th:field="*{name}" />
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
-        <!--<div class="mb-3">
-            <label th:for="type" class="form-label">구분</label>
-            <select class="form-select" th:classappend="${#fields.hasErrors('type')} ? 'is-invalid' : ''" th:field="*{type}">
-                <option th:each="restaurantType : ${T(me.ryeong.ggjm.domain.RestaurantType).values()}"
-                        th:value="${restaurantType}"
-                        th:text="${restaurantType.displayValue}"
-                ></option>
-            </select>
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
-        </div>-->
         <div class="d-flex justify-content-end">
             <button class="btn btn-sm btn-primary" type="submit">등록</button>
         </div>

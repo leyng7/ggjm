@@ -7,6 +7,8 @@ import me.ryeong.ggjm.common.CurrentUser;
 import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import me.ryeong.ggjm.domain.Restaurant;
+import me.ryeong.ggjm.domain.RestaurantType;
+import me.ryeong.ggjm.repository.PartyRepository;
 import me.ryeong.ggjm.repository.RestaurantRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,16 +16,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Controller
 @RequiredArgsConstructor
 public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;
+    private final PartyRepository partyRepository;
 
     @GetMapping("/restaurants")
     public String list(Pageable pageable,
@@ -59,22 +64,86 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-    @Getter @Setter
+    @GetMapping("/restaurants/{id}")
+    public String view(@PathVariable Long id,
+                       @CurrentUser Member member,
+                       Model model) {
+
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
+
+        model.addAttribute("restaurant", restaurant);
+
+        return "restaurants/view";
+    }
+
+
+    @GetMapping("/restaurants/{id}/new-party")
+    public String createPartyForm(@PathVariable Long id,
+                                  @CurrentUser Member member,
+                                  Model model) {
+
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
+
+        model.addAttribute("restaurant", restaurant);
+        model.addAttribute("partyForm", new PartyForm());
+
+        return "restaurants/newParty";
+    }
+
+
+    @PostMapping("/restaurants/{id}/new-party")
+    public String createParty(@PathVariable Long id,
+                              @Valid PartyForm partyForm,
+                              BindingResult result,
+                              @CurrentUser Member member,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            return "restaurants/newParty";
+        }
+
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
+
+        Party party = partyForm.toParty();
+        party.setRestaurant(restaurant);
+        party.setMember(member);
+        partyRepository.save(party);
+
+        return "redirect:/parties";
+    }
+
+
+    @Getter
+    @Setter
     static class RestaurantForm {
 
         @NotBlank(message = "식당명은 필수값입니다.")
         private String name;
 
-        @NotBlank(message = "구분값은 필수값입니다.")
-        private String kind;
+        @NotNull(message = "구분값은 필수값입니다.")
+        private RestaurantType type;
 
         public Restaurant toRestaurant() {
             Restaurant restaurant = new Restaurant();
             restaurant.setName(name);
-            restaurant.setKind(kind);
+            restaurant.setType(type);
             return restaurant;
         }
-
     }
+
+    @Getter
+    @Setter
+    static class PartyForm {
+
+        @NotBlank(message = "이름은 필수값입니다.")
+        private String name;
+
+        public Party toParty() {
+            Party party = new Party();
+            party.setName(name);
+            return party;
+        }
+    }
+
 
 }

@@ -16,7 +16,8 @@ public class Restaurant {
 
     private String name;
 
-    private String kind;
+    @Enumerated(EnumType.STRING)
+    private RestaurantType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

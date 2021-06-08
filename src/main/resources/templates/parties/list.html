@@ -16,8 +16,8 @@
                         <h5 class="card-title" th:text="${party.name} + ' (' + ${party.partyMembers.size + 1} +'/4)'">파티 제목 (1/4)</h5>
                     </a>
                     <p class="card-text">파티 설명</p>
-                    <span class="badge rounded-pill bg-primary">분식</span>
-                    <span class="badge rounded-pill bg-secondary">명랑핫도그</span>
+                    <span class="badge rounded-pill bg-primary" th:text="${party.restaurant.type.displayValue}">분식</span>
+                    <span class="badge rounded-pill bg-secondary" th:text="${party.restaurant.name}">명랑핫도그</span>
                 </div>
             </div>
         </div>

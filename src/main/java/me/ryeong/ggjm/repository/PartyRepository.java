@@ -1,6 +1,5 @@
 package me.ryeong.ggjm.repository;
 
-import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,9 @@ import java.util.Optional;
 
 public interface PartyRepository extends JpaRepository<Party, Long> {
 
-    @Query(value = "select p from Party p left join fetch p.partyMembers",
+    @Query(value = "select p from Party p " +
+            "left join fetch p.partyMembers " +
+            "left join fetch p.restaurant ",
             countQuery = "select count(p) from Party p")
     Page<Party> findAllWithMembers(Pageable pageable);
 

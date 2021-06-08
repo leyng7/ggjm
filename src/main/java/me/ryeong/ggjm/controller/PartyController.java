@@ -7,7 +7,6 @@ import me.ryeong.ggjm.common.CurrentUser;
 import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import me.ryeong.ggjm.domain.PartyMember;
-import me.ryeong.ggjm.repository.MemberRepository;
 import me.ryeong.ggjm.repository.PartyMemberRepository;
 import me.ryeong.ggjm.repository.PartyRepository;
 import me.ryeong.ggjm.service.PartyService;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
