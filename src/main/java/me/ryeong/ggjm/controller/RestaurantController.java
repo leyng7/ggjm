@@ -123,10 +123,10 @@ public class RestaurantController {
         @NotNull(message = "지역은 필수값입니다.")
         private RestaurantArea area;
 
-        @NotBlank(message = "let은 필수값입니다.")
+        @NotNull(message = "let은 필수값입니다.")
         private Double let;
 
-        @NotBlank(message = "lng는 필수값입니다.")
+        @NotNull(message = "lng는 필수값입니다.")
         private Double lng;
 
         public Restaurant toRestaurant() {
