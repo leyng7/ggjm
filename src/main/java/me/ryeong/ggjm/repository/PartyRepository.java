@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PartyRepository extends JpaRepository<Party, Long> {
@@ -15,6 +16,11 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
             "left join fetch p.restaurant ",
             countQuery = "select count(p) from Party p")
     Page<Party> findAllWithMembers(Pageable pageable);
+
+    @Query(value = "select p from Party p " +
+            "left join fetch p.partyMembers " +
+            "left join fetch p.restaurant ")
+    List<Party> findAllWithMembers();
 
     @Query(value = "select p from Party p " +
             "left join fetch p.member " +

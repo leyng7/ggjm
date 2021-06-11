@@ -16,8 +16,15 @@ public class Restaurant {
 
     private String name;
 
+    private Double let;
+
+    private Double lng;
+
     @Enumerated(EnumType.STRING)
     private RestaurantType type;
+
+    @Enumerated(EnumType.STRING)
+    private RestaurantArea area;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

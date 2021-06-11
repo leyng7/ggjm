@@ -15,6 +15,16 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
         <div class="mb-3">
+            <label th:for="area" class="form-label">지역</label>
+            <select class="form-select" th:classappend="${#fields.hasErrors('area')} ? 'is-invalid' : ''" th:field="*{area}">
+                <option th:each="restaurantType : ${T(me.ryeong.ggjm.domain.RestaurantArea).values()}"
+                        th:value="${restaurantType}"
+                        th:text="${restaurantType.displayValue}"
+                ></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
+        </div>
+        <div class="mb-3">
             <label th:for="type" class="form-label">구분</label>
             <select class="form-select" th:classappend="${#fields.hasErrors('type')} ? 'is-invalid' : ''" th:field="*{type}">
                 <option th:each="restaurantType : ${T(me.ryeong.ggjm.domain.RestaurantType).values()}"

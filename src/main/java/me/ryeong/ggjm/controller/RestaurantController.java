@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.ryeong.ggjm.common.CurrentUser;
-import me.ryeong.ggjm.domain.Member;
-import me.ryeong.ggjm.domain.Party;
-import me.ryeong.ggjm.domain.Restaurant;
-import me.ryeong.ggjm.domain.RestaurantType;
+import me.ryeong.ggjm.domain.*;
 import me.ryeong.ggjm.repository.PartyRepository;
 import me.ryeong.ggjm.repository.RestaurantRepository;
 import org.springframework.data.domain.Page;
@@ -123,10 +120,14 @@ public class RestaurantController {
         @NotNull(message = "구분값은 필수값입니다.")
         private RestaurantType type;
 
+        @NotNull(message = "지역은 필수값입니다.")
+        private RestaurantArea area;
+
         public Restaurant toRestaurant() {
             Restaurant restaurant = new Restaurant();
             restaurant.setName(name);
             restaurant.setType(type);
+            restaurant.setArea(area);
             return restaurant;
         }
     }

@@ -7,6 +7,7 @@ import me.ryeong.ggjm.common.CurrentUser;
 import me.ryeong.ggjm.domain.Member;
 import me.ryeong.ggjm.domain.Party;
 import me.ryeong.ggjm.domain.PartyMember;
+import me.ryeong.ggjm.dto.PartyDTO;
 import me.ryeong.ggjm.repository.PartyMemberRepository;
 import me.ryeong.ggjm.repository.PartyRepository;
 import me.ryeong.ggjm.service.PartyService;
@@ -18,11 +19,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -41,6 +44,15 @@ public class PartyController {
         model.addAttribute("page", page);
 
         return "parties/list";
+    }
+
+    @ResponseBody
+    @GetMapping("/parties/all")
+    public List<PartyDTO> all() {
+
+        List<Party> resultList = partyRepository.findAllWithMembers();
+
+        return resultList.stream().map(Party::toPartyDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/parties/new")

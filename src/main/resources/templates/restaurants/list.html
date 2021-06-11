@@ -8,6 +8,7 @@
 >
 
 <div layout:fragment="content">
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-3">
         <div class="col" th:each="restaurant : ${page.content}">
             <div class="card h-100">
@@ -15,6 +16,7 @@
                 <div class="card-body">
                     <a th:href="@{'/restaurants/' + ${restaurant.id}}">
                         <h5 class="card-title" th:text="${restaurant.name}">식당 이름</h5>
+                        <span class="badge rounded-pill bg-primary" th:text="${restaurant.area.displayValue}">지족동</span>
                         <span class="badge rounded-pill bg-primary" th:text="${restaurant.type.displayValue}">분식</span>
                     </a>
                     <!--<p class="card-text">파티 설명</p>-->
@@ -28,6 +30,7 @@
     <div>
         <ul class="pagination" th:replace="common/frontFragment :: pagination"></ul>
     </div>
+
 </div>
 </body>
 </html>
