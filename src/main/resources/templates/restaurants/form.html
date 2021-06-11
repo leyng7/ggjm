@@ -34,6 +34,16 @@
             </select>
             <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
         </div>
+        <div class="mb-3">
+            <label th:for="let" class="form-label">let</label>
+            <input type="text" class="form-control" th:classappend="${#fields.hasErrors('let')} ? 'is-invalid' : ''" th:field="*{let}"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('let')}" th:errors="*{let}"></div>
+        </div>
+        <div class="mb-3">
+            <label th:for="lng" class="form-label">lng</label>
+            <input type="text" class="form-control" th:classappend="${#fields.hasErrors('lng')} ? 'is-invalid' : ''" th:field="*{lng}"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('lng')}" th:errors="*{lng}"></div>
+        </div>
         <div class="d-flex justify-content-end">
             <button class="btn btn-sm btn-primary" type="submit">등록</button>
         </div>

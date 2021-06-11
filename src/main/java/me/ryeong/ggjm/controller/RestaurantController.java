@@ -123,11 +123,19 @@ public class RestaurantController {
         @NotNull(message = "지역은 필수값입니다.")
         private RestaurantArea area;
 
+        @NotBlank(message = "let은 필수값입니다.")
+        private Double let;
+
+        @NotBlank(message = "lng는 필수값입니다.")
+        private Double lng;
+
         public Restaurant toRestaurant() {
             Restaurant restaurant = new Restaurant();
             restaurant.setName(name);
             restaurant.setType(type);
             restaurant.setArea(area);
+            restaurant.setLng(lng);
+            restaurant.setLet(let);
             return restaurant;
         }
     }
