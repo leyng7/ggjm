@@ -19,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/images/**",
+                        "/webjars/**",
                         "/hello/**",
                         "/gs-guide-websocket/**",
                         "/app/**",
