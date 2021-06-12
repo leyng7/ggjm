@@ -18,7 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/members/new",
                         "/js/**",
                         "/css/**",
-                        "/images/**").permitAll()
+                        "/images/**",
+                        "/hello/**",
+                        "/gs-guide-websocket/**",
+                        "/app/**",
+                        "/topic/**"
+                ).permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
 

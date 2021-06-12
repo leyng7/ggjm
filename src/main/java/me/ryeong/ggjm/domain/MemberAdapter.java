@@ -4,10 +4,11 @@ import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
-public class MemberAdapter extends User {
+public class MemberAdapter extends User implements Serializable {
 
     private final Member member;
 
