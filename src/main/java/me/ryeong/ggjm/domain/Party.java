@@ -3,7 +3,6 @@ package me.ryeong.ggjm.domain;
 import lombok.Getter;
 import lombok.Setter;
 import me.ryeong.ggjm.dto.PartyDTO;
-import me.ryeong.ggjm.dto.RestaurantDTO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,17 +34,10 @@ public class Party {
 
 
     public PartyDTO toPartyDTO() {
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
-        restaurantDTO.setId(restaurant.getId());
-        restaurantDTO.setName(restaurant.getName());
-        restaurantDTO.setLet(restaurant.getLet());
-        restaurantDTO.setLng(restaurant.getLng());
-        restaurantDTO.setType(restaurant.getType().getDisplayValue());
 
         PartyDTO partyDTO = new PartyDTO();
         partyDTO.setId(id);
         partyDTO.setName(name);
-        partyDTO.setRestaurant(restaurantDTO);
         partyDTO.setPartyMembersSize(partyMembers.size() + 1);
 
         return partyDTO;

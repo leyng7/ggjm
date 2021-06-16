@@ -47,7 +47,7 @@ public class MemberController {
         Member member = memberForm.toMember();
         memberService.join(member);
 
-        return "members/form";
+        return "redirect:/login";
     }
 
     @Getter @Setter

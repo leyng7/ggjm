@@ -9,6 +9,7 @@
 
 <div layout:fragment="content">
     <form method="post" th:action="@{/restaurants/new}" th:object="${restaurantForm}">
+        <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label th:for="name" class="form-label">식당명</label>
             <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" th:field="*{name}"/>

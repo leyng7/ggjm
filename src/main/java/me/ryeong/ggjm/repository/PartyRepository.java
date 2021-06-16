@@ -1,6 +1,7 @@
 package me.ryeong.ggjm.repository;
 
 import me.ryeong.ggjm.domain.Party;
+import me.ryeong.ggjm.domain.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,5 +27,11 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
             "left join fetch p.member " +
             "where p.id = :id")
     Optional<Party> findByIdWithMember(Long id);
+
+    @Query(value = "select p " +
+        "from Party p " +
+        "   left join fetch p.partyMembers " +
+        "where p.restaurant = :restaurant")
+    List<Party> findAllByRestaurantWithMembers(Restaurant restaurant);
 
 }

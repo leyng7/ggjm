@@ -20,7 +20,6 @@ public class PartyService {
     private final PartyRepository partyRepository;
     private final PartyMemberRepository partyMemberRepository;
 
-
     public void enterParty(Long id, Member member) {
 
         Party party = partyRepository.findById(id).orElseThrow();

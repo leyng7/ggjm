@@ -2,6 +2,7 @@ package me.ryeong.ggjm.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.ryeong.ggjm.dto.RestaurantDTO;
 
 import javax.persistence.*;
 
@@ -29,5 +30,9 @@ public class Restaurant {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public RestaurantDTO toRestaurantDTO() {
+        return new RestaurantDTO(id, name, let, lng, type.getDisplayValue(), area.getDisplayValue());
+    }
 
 }

@@ -8,7 +8,6 @@ public class PartyDTO {
 
     private Long id;
     private String name;
-    private RestaurantDTO restaurant;
     private int partyMembersSize;
 
 }
